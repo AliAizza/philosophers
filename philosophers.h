@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:25 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 04:57:36 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/20 08:34:13 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
+# include <sys/time.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 
 typedef struct	s_philo
 {
-    pthread_t		philosopher;
+    pthread_t		*philosopher;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*mutex;
 	int				total_meals;
 	int				number_of_meals;
 	int				eating_time;
@@ -30,17 +31,19 @@ typedef struct	s_philo
 	int				time_to_die;
 	int				index;
 	int				number;
-	int				first_time;
-	int				time;
-	int				last_eat;
+	long long		first_time;
+	long long		time;
+	long long		last_eat;
 }   t_philo;
 
-void    ft_eating(t_philo *philo);
-void	ft_sleeping(t_philo *philo);
-void	ft_thinking(t_philo *philo);
-void	ft_takefork(t_philo *philo);
-void	ft_death(t_philo *philo);
-int	    ft_atoi(char *str);
+void		ft_eating(t_philo *philo);
+void		ft_sleeping(t_philo *philo);
+void		ft_thinking(t_philo *philo);
+void		ft_takefork(t_philo *philo);
+void		ft_death(t_philo *philo);
+int			ft_atoi(char *str);
 long long	ft_time(void);
+void		ft_sleep(long time);
+void		ft_check(t_philo *philo);
 
 #endif
