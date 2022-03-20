@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:14:46 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 08:34:32 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/20 09:22:07 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void    ft_eating(t_philo *philo)
 	pthread_mutex_lock(philo->mutex);
 	printf("%lld %d is eating\n", philo->time / 1000, philo->index);
 	pthread_mutex_unlock(philo->mutex);
-	ft_sleep(philo->eating_time);
+	ft_sleep(philo->eating_time * 1000);
 }
 
 void	ft_sleeping(t_philo *philo)
@@ -27,7 +27,7 @@ void	ft_sleeping(t_philo *philo)
 	pthread_mutex_lock(philo->mutex);
 	printf("%lld %d is sleeping\n", philo->time / 1000 ,philo->index);
 	pthread_mutex_unlock(philo->mutex);
-	ft_sleep(philo->sleeping_time);
+	ft_sleep(philo->sleeping_time * 1000);
 }
 
 void	ft_thinking(t_philo *philo)

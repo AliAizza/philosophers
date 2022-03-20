@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 08:33:30 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/20 09:50:14 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ void	ft_check(t_philo *philo)
 	}
 }
 
+void	ft_checker(t_philo *philo)
+{
+	if (ft_time() - philo->last_eat >= philo->time_to_die * 1000)
+	{
+		ft_death(philo);
+		exit(0);
+	}
+}
+
 void	*ft_thread(void *x)
 {
 	t_philo	*philo;
@@ -56,6 +65,7 @@ void	*ft_thread(void *x)
 			break;
 		ft_sleeping(philo);
 		ft_thinking(philo);
+		//ft_checker(philo);
 		usleep(100);
 	}
 	return (0);
@@ -80,12 +90,21 @@ int main(int argc, char **argv)
 	int		i;
 	long long	x;
 
-	x = ft_time();
+	while (argc > 1)
+	{
+		if (!ft_digit_check(argv[argc - 1]))
+		{
+			write(1, "INVALID ARGUMENT!\n", 19);
+			return (1);
+		}
+		argc--;
+	}
 	philo = malloc(ft_atoi(argv[1]) * sizeof(t_philo));
 	philo->philosopher = malloc(ft_atoi(argv[1]) * sizeof(pthread_t));
 	m = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(m, NULL);
 	i = 0;
+	x = ft_time();
 	while (i < ft_atoi(argv[1]))
 	{
 		philo[i].mutex = m;
@@ -104,5 +123,19 @@ int main(int argc, char **argv)
 		pthread_create(philo->philosopher + i, NULL, &ft_thread, &philo[i]);
 		i++;
 	}
-	ft_check(philo);
+	while (1)
+	{
+		if (ft_time() - philo->last_eat >= philo->time_to_die * 1000)
+		{
+			ft_death(philo);
+			exit(0);
+		}
+	}
+	//ft_check(philo);
+	// i = 0;
+	// while (i < ft_atoi(argv[1]))
+	// {
+	// 	pthread_join(*(philo->philosopher + i), NULL);
+	// 	i++;
+	// }
 }
