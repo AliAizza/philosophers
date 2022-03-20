@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 09:50:14 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/20 12:06:14 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,37 @@
 
 void	ft_check(t_philo *philo)
 {
-	int			finish_eat;
-	int			i;
+	int	meals;
+	int	i;
 
-	i = -1;
-	finish_eat = 0;
-	while (finish_eat != philo->number)
+	meals = 0;
+	while (meals != philo->number)
 	{
-		finish_eat = 0;
-		i = -1;
-		while (++i < philo->number)
+		meals = 0;
+		i = 0;
+		while (i < philo->number)
 		{
 			if (philo[i].number_of_meals == philo->total_meals)
-				finish_eat++;
+				meals++;
 			if (ft_time() - philo[i].last_eat >= philo->time_to_die * 1000)
 			{
 				ft_death(philo);
 				exit (0);
 			}
+			i++;
 		}
 	}
 }
 
 void	ft_checker(t_philo *philo)
 {
-	if (ft_time() - philo->last_eat >= philo->time_to_die * 1000)
+	while (1)
 	{
-		ft_death(philo);
-		exit(0);
+		if (ft_time() - philo->last_eat >= philo->time_to_die * 1000)
+		{
+			ft_death(philo);
+			exit(0);
+		}
 	}
 }
 
@@ -54,19 +57,18 @@ void	*ft_thread(void *x)
 	{
 		pthread_mutex_lock(&philo->forks[philo->index]);
 		ft_takefork(philo);
-		pthread_mutex_lock(&philo->forks[philo->index - 1]);
+		pthread_mutex_lock(&philo->forks[philo->index + 1 % philo->number]);
 		ft_takefork(philo);
-		ft_eating(philo);
 		philo->last_eat = ft_time();
+		ft_eating(philo);
 		pthread_mutex_unlock(&philo->forks[philo->index]);
-		pthread_mutex_unlock(&philo->forks[philo->index - 1]);
-		philo->number_of_meals++;
+		pthread_mutex_unlock(&philo->forks[philo->index + 1]);
+		if (philo->total_meals != -1)
+			philo->number_of_meals++;
 		if (philo->number_of_meals == philo->total_meals)
-			break;
+			break ;
 		ft_sleeping(philo);
 		ft_thinking(philo);
-		//ft_checker(philo);
-		usleep(100);
 	}
 	return (0);
 }
@@ -89,7 +91,9 @@ int main(int argc, char **argv)
     pthread_mutex_t	*m;
 	int		i;
 	long long	x;
+	int	j;
 
+	j = argc;
 	while (argc > 1)
 	{
 		if (!ft_digit_check(argv[argc - 1]))
@@ -114,24 +118,30 @@ int main(int argc, char **argv)
 		philo[i].eating_time = ft_atoi(argv[3]);
 		philo[i].sleeping_time = ft_atoi(argv[4]);
 		philo[i].total_meals = -1;
-		if (argc == 6)
+		if (j == 6)
 			philo[i].total_meals = ft_atoi(argv[5]);
-		philo[i].index = i + 1;
+		philo[i].index = i;
 		philo[i].last_eat = ft_time();
 		philo[i].first_time = x;
 		philo[i].forks = ft_init_forks(ft_atoi(argv[1]));
-		pthread_create(philo->philosopher + i, NULL, &ft_thread, &philo[i]);
+		pthread_create(&philo->philosopher[i], NULL, &ft_thread, &philo[i]);
 		i++;
+		usleep(100);
 	}
-	while (1)
-	{
-		if (ft_time() - philo->last_eat >= philo->time_to_die * 1000)
-		{
-			ft_death(philo);
-			exit(0);
-		}
-	}
-	//ft_check(philo);
+	// while (1)
+	// {
+	// 	i = 0;
+	// 	while (i < ft_atoi(argv[1]))
+	// 	{
+	// 		if ((ft_time() - philo[i].last_eat) / 1000 >= philo->time_to_die)
+	// 		{
+	// 			ft_death(philo);
+	// 			exit(0);
+	// 		}
+	// 		i++;
+	// 	}
+	// }
+	ft_check(philo);
 	// i = 0;
 	// while (i < ft_atoi(argv[1]))
 	// {

@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:25 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 09:25:19 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/20 10:23:14 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct	s_philo
 	int				index;
 	int				number;
 	long long		first_time;
-	long long		time;
 	long long		last_eat;
 }   t_philo;
 

@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:55:10 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 09:35:19 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/20 11:15:03 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void ft_sleep(long time)
 	long i;
 
 	i = ft_time();
-	while(ft_time() - i < time)
+	while((ft_time() - i) / 1000 <= time)
 		usleep(20);
 }
 
