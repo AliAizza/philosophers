@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:14:46 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:24:07 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/22 00:33:35 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	ft_takefork(t_philo *philo)
 	pthread_mutex_unlock(philo->mutex);
 }
 
-void	ft_death(t_philo philo)
+void	ft_death(t_philo *philo)
 {
-	pthread_mutex_lock(philo.mutex);
-	printf("%lld %d died\n", (ft_time() - philo.first_time) \
-	/ 1000, philo.index + 1);
+	pthread_mutex_lock(philo->mutex);
+	printf("%lld %d died\n", (ft_time() - philo->first_time) \
+	/ 1000, philo->index + 1);
 }

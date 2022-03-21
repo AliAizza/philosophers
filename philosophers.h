@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:25 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:36:56 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/22 00:25:32 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			ft_init_philos(t_philo *philo, \
 long long x, int argc, char **argv);
 void			ft_thinking(t_philo *philo);
 void			ft_takefork(t_philo *philo);
-void			ft_death(t_philo philo);
+void			ft_death(t_philo *philo);
 int				ft_atoi(char *str);
 long long		ft_time(void);
 void			ft_sleep(long time);

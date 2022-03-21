@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:55:10 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:46:31 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/22 00:50:45 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_sleep(long time)
 
 	i = ft_time();
 	while (ft_time() - i <= time)
-		usleep(10);
+		usleep(300);
 }
 
 int	ft_digit_check(char *str)

@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:48:17 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/22 00:55:31 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_checker(t_philo *philo)
 		{
 			if (ft_time() - philo[i].last_eat >= philo->time_to_die * 1000)
 			{
-				ft_death(philo[i]);
+				ft_death(philo + i);
 				return (0);
 			}
 			if (philo[i].number_of_meals >= philo->total_meals)
@@ -48,8 +48,8 @@ void	*ft_thread(void *x)
 		ft_takefork(philo);
 		pthread_mutex_lock(&philo->forks[philo->index + 1 % philo->number]);
 		ft_takefork(philo);
-		ft_eating(philo);
 		philo->last_eat = ft_time();
+		ft_eating(philo);
 		pthread_mutex_unlock(&philo->forks[philo->index]);
 		pthread_mutex_unlock(&philo->forks[philo->index + 1 % philo->number]);
 		if (philo->total_meals != -1)
@@ -75,11 +75,13 @@ void	ft_create_threads(t_philo *philo, int num)
 		i += 2;
 	}
 	i = 1;
+	usleep(100);
 	while (i < num)
 	{
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
 		i += 2;
 	}
+	free(th);
 }
 
 int	main(int argc, char **argv)
@@ -96,6 +98,9 @@ int	main(int argc, char **argv)
 	x = ft_time();
 	ft_init_philos(philo, x, argc, argv);
 	ft_create_threads(philo, ft_atoi(argv[1]));
+	free(philo->forks);
+	free(philo->mutex);
+	free(philo);
 	if (!ft_checker(philo))
 		return (1);
 }
