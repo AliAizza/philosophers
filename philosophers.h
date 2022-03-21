@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:25 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:28:08 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:36:56 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ long long		ft_time(void);
 void			ft_sleep(long time);
 void			ft_check(t_philo *philo);
 int				ft_digit_check(char *str);
+int				ft_check_args(int argc, char **argv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:27:08 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:48:17 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	*ft_thread(void *x)
 	t_philo	*philo;
 
 	philo = (t_philo *)x;
+	philo->last_eat = ft_time();
 	while (1)
 	{
 		pthread_mutex_lock(&philo->forks[philo->index]);
@@ -73,7 +74,6 @@ void	ft_create_threads(t_philo *philo, int num)
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
 		i += 2;
 	}
-	usleep(100);
 	i = 1;
 	while (i < num)
 	{
@@ -82,32 +82,16 @@ void	ft_create_threads(t_philo *philo, int num)
 	}
 }
 
-int	ft_check_args(int argc, char **argv)
-{
-	if (argc < 5 && argc > 6)
-	{
-		printf("INCORRECT NUMBER OF ARGUMENTS!\n");
-		return (0);
-	}
-	while (argc > 1)
-	{
-		if (!ft_digit_check(argv[argc - 1]))
-		{
-			printf("INVALID ARGUMENT!\n");
-			return (0);
-		}
-		argc--;
-	}
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
 	t_philo		*philo;
 	long long	x;
 
 	if (!ft_check_args(argc, argv))
+	{
+		printf("INVALID ARGUMENT!\n");
 		return (1);
+	}
 	philo = malloc(ft_atoi(argv[1]) * sizeof(t_philo));
 	x = ft_time();
 	ft_init_philos(philo, x, argc, argv);

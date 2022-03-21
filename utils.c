@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:55:10 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:28:50 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:46:31 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,28 @@ int	ft_digit_check(char *str)
 		if (str[i] < '0' && str[i] > '9')
 			return (0);
 		i++;
+	}
+	return (1);
+}
+
+int	ft_check_args(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (argc < 5 && argc > 6)
+		return (0);
+	while (i < argc)
+	{
+		if (ft_atoi(argv[i]) < 0)
+			return (0);
+		i++;
+	}
+	while (argc > 1)
+	{
+		if (!ft_digit_check(argv[argc - 1]))
+			return (0);
+		argc--;
 	}
 	return (1);
 }
