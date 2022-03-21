@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:26:25 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 10:23:14 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:28:08 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct	s_philo
+typedef struct s_philo
 {
-    pthread_t		*philosopher;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*mutex;
 	int				total_meals;
@@ -33,17 +32,20 @@ typedef struct	s_philo
 	int				number;
 	long long		first_time;
 	long long		last_eat;
-}   t_philo;
+}	t_philo;
 
-void		ft_eating(t_philo *philo);
-void		ft_sleeping(t_philo *philo);
-void		ft_thinking(t_philo *philo);
-void		ft_takefork(t_philo *philo);
-void		ft_death(t_philo *philo);
-int			ft_atoi(char *str);
-long long	ft_time(void);
-void		ft_sleep(long time);
-void		ft_check(t_philo *philo);
-int			ft_digit_check(char *str);
+void			ft_eating(t_philo *philo);
+pthread_mutex_t	*ft_init_forks(int x);
+void			ft_sleeping(t_philo *philo);
+void			ft_init_philos(t_philo *philo, \
+long long x, int argc, char **argv);
+void			ft_thinking(t_philo *philo);
+void			ft_takefork(t_philo *philo);
+void			ft_death(t_philo philo);
+int				ft_atoi(char *str);
+long long		ft_time(void);
+void			ft_sleep(long time);
+void			ft_check(t_philo *philo);
+int				ft_digit_check(char *str);
 
 #endif

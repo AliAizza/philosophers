@@ -6,75 +6,34 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 17:39:45 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:27:08 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	socrates(t_philo *philo)
+int	ft_checker(t_philo *philo)
 {
-	int			i;
-	long long	x;
-	long long	y;
-
-	while (1)
-	{
-		i = 0;
-		while (i < philo->number)
-		{
-			y = philo->time_to_die * 1000;
-			x = ft_time() - philo->last_eat;
-			if (x >= y)
-			{
-				ft_death(philo);
-				exit(0);
-			}
-			if (philo->number_of_meals >= philo->total_meals && philo->total_meals != -1)
-			{
-				exit(0);
-			}	
-			i++;
-		}
-	}
-}
-
-void	ft_check(t_philo *philo)
-{
-	int	meals;
 	int	i;
-	long long	time; 
+	int	x;
 
-	meals = 0;
-	while (meals != philo->number)
+	x = 0;
+	while (x < philo->number || philo->total_meals == -1)
 	{
-		time = ft_time();
-		meals = 0;
-		i = 0;
-		while (i < philo->number)
+		i = -1;
+		x = 0;
+		while (++i < philo->number)
 		{
-			if (philo[i].number_of_meals == philo->total_meals)
-				meals++;
-			if (time - philo[i].last_eat >= philo->time_to_die * 1000)
+			if (ft_time() - philo[i].last_eat >= philo->time_to_die * 1000)
 			{
-				ft_death(philo);
-				exit (0);
+				ft_death(philo[i]);
+				return (0);
 			}
-			i++;
+			if (philo[i].number_of_meals >= philo->total_meals)
+				x++;
 		}
 	}
-}
-
-void	ft_checker(t_philo *philo)
-{
-	while (1)
-	{
-		if (ft_time() - philo->last_eat >= philo->time_to_die * 1000)
-		{
-			ft_death(philo);
-			exit(0);
-		}
-	}
+	return (0);
 }
 
 void	*ft_thread(void *x)
@@ -102,103 +61,57 @@ void	*ft_thread(void *x)
 	return (0);
 }
 
-pthread_mutex_t	*ft_init_forks(int x)
+void	ft_create_threads(t_philo *philo, int num)
 {
-	pthread_mutex_t	*forks;
-	int				i;
+	int			i;
+	pthread_t	*th;
 
-	forks = malloc(x * sizeof(pthread_mutex_t));
+	th = malloc(num * sizeof(pthread_t));
 	i = 0;
-	while(i < x)
-		pthread_mutex_init(&forks[i++], NULL);
-	return (forks);
+	while (i < num)
+	{
+		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
+		i += 2;
+	}
+	usleep(100);
+	i = 1;
+	while (i < num)
+	{
+		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
+		i += 2;
+	}
 }
 
-int main(int argc, char **argv)
+int	ft_check_args(int argc, char **argv)
 {
-	t_philo	*philo;
-	pthread_t	*th;
-    pthread_mutex_t	*m;
-	pthread_mutex_t	*f;
-	int		i;
-	long long	x;
-	int	j;
-	int	die = ft_atoi(argv[2]);
-	int	eat = ft_atoi(argv[3]);
-	int	sleep = ft_atoi(argv[4]);
-	int	num = ft_atoi(argv[1]);
-	int	total;
-	if	(argc == 6)
-		total = ft_atoi(argv[5]);
-
-	j = argc;
+	if (argc < 5 && argc > 6)
+	{
+		printf("INCORRECT NUMBER OF ARGUMENTS!\n");
+		return (0);
+	}
 	while (argc > 1)
 	{
 		if (!ft_digit_check(argv[argc - 1]))
 		{
-			write(1, "INVALID ARGUMENT!\n", 19);
-			return (1);
+			printf("INVALID ARGUMENT!\n");
+			return (0);
 		}
 		argc--;
 	}
-	philo = malloc(num * sizeof(t_philo));
-	th = malloc(num * sizeof(pthread_t));
-	m = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(m, NULL);
-	f = ft_init_forks(num);
-	i = 0;
+	return (1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_philo		*philo;
+	long long	x;
+
+	if (!ft_check_args(argc, argv))
+		return (1);
+	philo = malloc(ft_atoi(argv[1]) * sizeof(t_philo));
 	x = ft_time();
-	while (i < num)
-	{
-		philo[i].mutex = m;
-		philo[i].number_of_meals = 0;
-		philo[i].number = num;
-		philo[i].time_to_die = die;
-		philo[i].eating_time = eat;
-		philo[i].sleeping_time = sleep;
-		philo[i].total_meals = -1;
-		if (j == 6)
-			philo[i].total_meals = total;
-		philo[i].index = i;
-		philo[i].last_eat = ft_time();
-		philo[i].first_time = x;
-		philo[i].forks = f;
-		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
-		i++;
-		//usleep(500);
-	}
-	// i = 0;
-	// while (i < num)
-	// {
-	// 	pthread_create(th + i, NULL, &ft_thread, &philo[i]);
-	// 	i += 2;
-	// }
-	//usleep(1000);
-	// i = 1;
-	// while (i < num)
-	// {
-	// 	pthread_create(th + i, NULL, &ft_thread, &philo[i]);
-	// 	i += 2;
-	// }
-	//socrates(philo);
-	//ft_check(philo);
-	while (1)
-	{
-		i = 0;
-		while (i < ft_atoi(argv[1]))
-		{
-			if ((ft_time() - philo[i].last_eat) / 1000 >= philo->time_to_die)
-			{
-				ft_death(philo);
-				exit(0);
-			}
-			i++;
-		}
-	}
-	// i = 0;
-	// while (i < ft_atoi(argv[1]))
-	// {
-	// 	pthread_join(*(philo->philosopher + i), NULL);
-	// 	i++;
-	// }
+	ft_init_philos(philo, x, argc, argv);
+	ft_create_threads(philo, ft_atoi(argv[1]));
+	if (!ft_checker(philo))
+		return (1);
 }

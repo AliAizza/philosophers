@@ -6,11 +6,11 @@
 #    By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 11:52:07 by aaizza            #+#    #+#              #
-#    Updated: 2022/03/20 11:55:01 by aaizza           ###   ########.fr        #
+#    Updated: 2022/03/21 08:03:58 by aaizza           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 FLAGS = -Wall -Wextra -Werror
 

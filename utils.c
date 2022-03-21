@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:55:10 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/20 16:01:57 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:28:50 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ long long	ft_time(void)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return((time.tv_sec * 1000000) + time.tv_usec);
+	return ((time.tv_sec * 1000000) + time.tv_usec);
 }
 
-void ft_sleep(long time)
+void	ft_sleep(long time)
 {
-	long i;
+	long	i;
 
 	i = ft_time();
-	while(ft_time() - i <= time)
-		usleep(20);
+	while (ft_time() - i <= time)
+		usleep(10);
 }
 
 int	ft_digit_check(char *str)
@@ -61,7 +61,7 @@ int	ft_digit_check(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (str[i] < '0' && str[i] > '9')
 			return (0);
 		i++;
 	}
