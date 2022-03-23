@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 23:26:25 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/22 00:25:32 by aaizza           ###   ########.fr       */
+/*   Created: 2022/03/23 22:53:12 by aaizza            #+#    #+#             */
+/*   Updated: 2022/03/23 22:53:15 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <pthread.h>
 # include <sys/time.h>

@@ -6,11 +6,11 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 09:25:17 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/21 09:35:11 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/23 22:52:38 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 pthread_mutex_t	*ft_init_forks(int x)
 {

@@ -6,11 +6,11 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:14:46 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/22 00:33:35 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/23 22:52:34 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 void	ft_eating(t_philo *philo)
 {

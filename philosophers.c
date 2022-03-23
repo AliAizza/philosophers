@@ -6,11 +6,11 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/22 00:55:31 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/23 23:10:42 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	ft_checker(t_philo *philo)
 {
@@ -74,8 +74,8 @@ void	ft_create_threads(t_philo *philo, int num)
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
 		i += 2;
 	}
+	usleep(1000);
 	i = 1;
-	usleep(100);
 	while (i < num)
 	{
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);

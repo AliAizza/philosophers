@@ -6,11 +6,11 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:55:10 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/23 00:48:36 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/23 23:07:41 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	ft_atoi(char *str)
 {
@@ -51,7 +51,7 @@ void	ft_sleep(long time)
 
 	i = ft_time();
 	while (ft_time() - i <= time)
-		usleep(300);
+		usleep(500);
 }
 
 int	ft_digit_check(char *str)
