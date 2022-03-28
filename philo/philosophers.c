@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/23 23:10:42 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/28 03:30:09 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,5 @@ int	main(int argc, char **argv)
 	free(philo);
 	if (!ft_checker(philo))
 		return (1);
+	return (0);
 }
