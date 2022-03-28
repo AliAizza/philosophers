@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 10:40:31 by yed-dyb           #+#    #+#             */
-/*   Updated: 2022/03/28 03:44:26 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/28 04:04:05 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 	while (i < num)
 	{
 		waitpid(-1, &status, 0);
-		if (WEXITSTATUS(status) == 2)
+		if (WEXITSTATUS(status) == 0)
 		{
 			ft_kill(philo);
 			exit(0);
