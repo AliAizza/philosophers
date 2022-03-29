@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/29 02:06:05 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/29 02:49:13 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_checker(t_philo *philo)
 				ft_death(philo + i);
 				return (0);
 			}
-			if (philo[i].number_of_meals == philo->total_meals && \
+			if (philo[i].number_of_meals >= philo->total_meals && \
 				philo->total_meals != -1)
 				x++;
 		}
@@ -48,12 +48,12 @@ void	*ft_thread(void *x)
 	{
 		pthread_mutex_lock(&philo->forks[philo->index]);
 		ft_takefork(philo);
-		pthread_mutex_lock(&philo->forks[philo->index + 1 % philo->number]);
+		pthread_mutex_lock(&philo->forks[(philo->index + 1) % philo->number]);
 		ft_takefork(philo);
 		philo->last_eat = ft_time();
 		ft_eating(philo);
 		pthread_mutex_unlock(&philo->forks[philo->index]);
-		pthread_mutex_unlock(&philo->forks[philo->index + 1 % philo->number]);
+		pthread_mutex_unlock(&philo->forks[(philo->index + 1) % philo->number]);
 		if (philo->total_meals != -1)
 			philo->number_of_meals++;
 		if (philo->number_of_meals == philo->total_meals)
@@ -70,14 +70,14 @@ void	ft_create_threads(t_philo *philo, int num)
 	pthread_t	*th;
 
 	th = malloc(num * sizeof(pthread_t));
-	i = 0;
+	i = 1;
 	while (i < num)
 	{
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
 		i += 2;
 	}
 	usleep(1000);
-	i = 1;
+	i = 0;
 	while (i < num)
 	{
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
