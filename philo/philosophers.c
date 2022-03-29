@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/28 03:30:09 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/29 02:06:05 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int	ft_checker(t_philo *philo)
 				ft_death(philo + i);
 				return (0);
 			}
-			if (philo[i].number_of_meals >= philo->total_meals)
+			if (philo[i].number_of_meals == philo->total_meals && \
+				philo->total_meals != -1)
 				x++;
 		}
 	}
+	free(philo);
 	return (0);
 }
 
@@ -100,7 +102,6 @@ int	main(int argc, char **argv)
 	ft_create_threads(philo, ft_atoi(argv[1]));
 	free(philo->forks);
 	free(philo->mutex);
-	free(philo);
 	if (!ft_checker(philo))
 		return (1);
 	return (0);
