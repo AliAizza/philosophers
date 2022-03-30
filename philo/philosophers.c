@@ -6,7 +6,7 @@
 /*   By: aaizza <aaizza@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 23:24:37 by aaizza            #+#    #+#             */
-/*   Updated: 2022/03/29 02:49:13 by aaizza           ###   ########.fr       */
+/*   Updated: 2022/03/30 00:32:55 by aaizza           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ void	ft_create_threads(t_philo *philo, int num)
 	pthread_t	*th;
 
 	th = malloc(num * sizeof(pthread_t));
-	i = 1;
+	i = 0;
 	while (i < num)
 	{
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
 		i += 2;
 	}
 	usleep(1000);
-	i = 0;
+	i = 1;
 	while (i < num)
 	{
 		pthread_create(th + i, NULL, &ft_thread, &philo[i]);
